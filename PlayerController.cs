@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         if ((!ShuffleSound.isPlaying)&&(direction!=0))
         {
-            ShuffleSound.Play(0);//plaing the sound when any of the objects move HAVENT PICKED THE SOUND YET
+           // ShuffleSound.Play(0);//plaing the sound when any of the objects move HAVENT PICKED THE SOUND YET
         }
         GetComponent<Rigidbody>().velocity=movement*direction; //objects movement
 
@@ -88,8 +88,17 @@ public class PlayerController : MonoBehaviour
         if (this.CompareTag("Player") && other.CompareTag("Finish")) //checking if the player has solved the puzzle
         {
             PlayerPrefs.SetInt("levelReached", SceneManager.GetActiveScene().buildIndex+1); //changing the number of levels solved
-            StartCoroutine (LoadAsynchronosly(SceneManager.GetActiveScene().buildIndex+1)); //starting the loadinf of the next level
-        }
+
+            if(SceneManager.GetActiveScene().buildIndex==8)
+            {
+                StartCoroutine (LoadAsynchronosly(0));
+            }
+            else
+            {
+                StartCoroutine (LoadAsynchronosly(SceneManager.GetActiveScene().buildIndex+1)); //starting the loadinf of the next level
+       
+            }
+            }
         if ((this.CompareTag("Cube") && other.CompareTag("Cube"))||(this.CompareTag("Cube") && other.CompareTag("Player"))) //checking if any oblects have entered into the inactive monuments 
         {
             numberOfEneteredCubes+=1;  //number of cubes in one monument
