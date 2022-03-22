@@ -18,7 +18,7 @@ public class OptionsMenu : MonoBehaviour
         int qualityLevel = QualitySettings.GetQualityLevel(); //gets the default quality
         qualityDropdown.value= qualityLevel;
         float val = 0f; // stores the current ingame  volume
-        audioMixer.GetFloat("mainVolume", out val);
+        val = PlayerPrefs.GetFloat("VolumePrefs", 100f);
         VolumeSlider.value = val;
         resolutions = Screen.resolutions; 
         resolutionDropdown.ClearOptions();
@@ -44,6 +44,7 @@ public class OptionsMenu : MonoBehaviour
     public void VolumeSetting (float volume)
     {
         audioMixer.SetFloat("mainVolume", volume);
+        PlayerPrefs.SetFloat("VolumePrefs", volume);
     }
     public void QualitySetting (int qualityIndex)
     {
