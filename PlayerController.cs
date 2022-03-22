@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Vector3 movement; //players movement direction 
      [SerializeField] AudioSource ShuffleSound; //sound of moving for objects
     public GameObject loadingScreen;
+    public GameObject FinishScreen;
+
     public Slider LoadSlider;
     public  Text progressText;
     int  direction;
@@ -21,6 +23,7 @@ public class PlayerController : MonoBehaviour
      void Start()
     {
         Time.timeScale = 1f; //normal timeflow
+       // FinishScreen.SetActive(false);
         //ShuffleSound = GetComponent<AudioSource>(); //sound of moving for objects
     }
     IEnumerator LoadAsynchronosly (int sceneIndex)
@@ -87,8 +90,9 @@ public class PlayerController : MonoBehaviour
     {
         if (this.CompareTag("Player") && other.CompareTag("Finish")) //checking if the player has solved the puzzle
         {
+            FinishScreen.SetActive(true);
             PlayerPrefs.SetInt("levelReached", SceneManager.GetActiveScene().buildIndex+1); //changing the number of levels solved
-
+/*
             if(SceneManager.GetActiveScene().buildIndex==8)
             {
                 StartCoroutine (LoadAsynchronosly(0));
@@ -97,8 +101,8 @@ public class PlayerController : MonoBehaviour
             {
                 StartCoroutine (LoadAsynchronosly(SceneManager.GetActiveScene().buildIndex+1)); //starting the loadinf of the next level
        
-            }
-            }
+            }*/
+        }
         if ((this.CompareTag("Cube") && other.CompareTag("Cube"))||(this.CompareTag("Cube") && other.CompareTag("Player"))) //checking if any oblects have entered into the inactive monuments 
         {
             numberOfEneteredCubes+=1;  //number of cubes in one monument
